@@ -7,6 +7,7 @@ import {
 } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import { useSnackbar } from "../utils/SnackbarComponent"
+import api from "../../api/axios"
 
 const LoginComponent = () => {
     const [email, setEmail] = useState("")
@@ -27,39 +28,41 @@ const LoginComponent = () => {
         if (!emailPattern.test(email)) {
             setEmailError("Please enter a valid email address")
             return
+        } else {
+            setEmailError("")
         }
 
         if (password.length <= 5) {
             setPasswordError("Please enter a valid password")
             return
+        } else {
+            setPasswordError("")
         }
-        setPasswordError("")
+
         setIsLoading(true)
 
         try {
-            const response = await fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, password })
-            });
-            const data = await response.json();
-
-            if (data.message == "No user found") {
+            const data = {
+                email: email,
+                password: password
+            }
+            const headers = {
+                'Content-Type': 'application/json'
+            }
+            const response = await api.post('/login', data);
+            if (response.data.message == "No user found") {
                 showSnackbar("Login failed: Invalid user credentials", "warning", "bottom", "right")
             }
-            else if (data.message == "Incorrect Password") {
+            else if (response.data.message == "Incorrect Password") {
                 showSnackbar("Login failed: Invalid user credentials", "warning", "bottom", "right")
             }
-            else if (!response.ok) {
-                showSnackbar("Login failed: " + error, "error", "bottom", "right")
-            } else {
-                localStorage.setItem("access_token", data.access_token)
+            else if (response.status == 200) {
+                localStorage.setItem("access_token", response.data.access_token)
                 showSnackbar("🎉 Login successful", "success", "bottom", "right")
+            } else {
+                showSnackbar("Login failed: " + error, "error", "bottom", "right")
             }
         } catch (error) {
-            console.error("⚠️ Network error:", error);
             showSnackbar("⚠️ Network error: " + error, "error", "bottom", "right")
         } finally {
             setIsLoading(false);
