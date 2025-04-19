@@ -1,5 +1,6 @@
 import { AddCircle } from "@mui/icons-material"
-import { Avatar, Box, Button, Container, Paper, TextField, Typography } from "@mui/material"
+import { Avatar, Box, Button, Container, Paper, TextField, Typography, Grid, Link as MaterialLink} from "@mui/material"
+import { Link as RouterLink } from "react-router-dom"
 
 const SignupComponent = () => {
     return (
@@ -32,6 +33,14 @@ const SignupComponent = () => {
                     <Button type="reset" variant="contained" color="inherit" fullWidth sx={{ mt: 1 }}>
                         Reset
                     </Button>
+                    <Grid container justifyContent='space-between' sx={{ mt: 1 }}>
+                    <Grid item>
+                        <MaterialLink component={RouterLink} to="/forget-password">Forget Password</MaterialLink>
+                    </Grid>
+                    <Grid item>
+                        <MaterialLink component={RouterLink} to="/signin">Sign in</MaterialLink>
+                    </Grid>
+                </Grid>
                 </Box>
             </Paper>
         </Container>

@@ -120,7 +120,7 @@ const LoginComponent = () => {
                         <MaterialLink component={RouterLink} to="/forget-password">Forget Password</MaterialLink>
                     </Grid>
                     <Grid item>
-                        <MaterialLink component={RouterLink} to="/sign-up">Sign up</MaterialLink>
+                        <MaterialLink component={RouterLink} to="/signup">Sign up</MaterialLink>
                     </Grid>
                 </Grid>
             </Paper>
