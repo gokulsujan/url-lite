@@ -1,11 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginComponent from './components/login/Login'
-import './App.css'
+import { SnackbarComponent } from './components/utils/SnackbarComponent.jsx'
+import SignupComponent from "./components/signup/Signup.jsx";
 
 function App() {
     return (
         <>
-            <LoginComponent />
-        </>
+            <SnackbarComponent>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<LoginComponent />} />
+                        <Route path="/signin" element={<LoginComponent />} />
+                        <Route path="/signup" element={<SignupComponent />} />
+                    </Routes>
+                </Router>
+            </SnackbarComponent>
+        </> 
     )
 }
 
