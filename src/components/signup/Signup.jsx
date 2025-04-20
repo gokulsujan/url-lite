@@ -1,7 +1,7 @@
 import { AddCircle } from "@mui/icons-material"
 import { Avatar, Box, Button, Container, Paper, TextField, Typography, Grid, Link as MaterialLink, CircularProgress } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import api from "../../api/axios"
 import { useSnackbar } from "../utils/SnackbarComponent"
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,9 @@ const SignupComponent = () => {
     const showSnackbar = useSnackbar();
     const navigate = useNavigate();
 
+    if (localStorage.getItem("access_token")) {
+        navigate("/")
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()

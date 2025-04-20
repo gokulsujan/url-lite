@@ -3,6 +3,7 @@ import LoginComponent from './components/login/Login'
 import { SnackbarComponent } from './components/utils/SnackbarComponent.jsx'
 import SignupComponent from "./components/signup/Signup.jsx";
 import NavbarComponent from "./components/home/Navbar.jsx";
+import HomeComponent from "./components/home/Home.jsx";
 
 function App() {
     return (
@@ -11,7 +12,7 @@ function App() {
             <SnackbarComponent>
                 <Router>
                     <Routes>
-                        <Route path="/" element={<LoginComponent />} />
+                        <Route path="/" element={<HomeComponent />} />
                         <Route path="/signin" element={<LoginComponent />} />
                         <Route path="/signup" element={<SignupComponent />} />
                     </Routes>

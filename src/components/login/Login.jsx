@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LockOutlined, Visibility, VisibilityOff } from "@mui/icons-material"
 import {
     Avatar, Container, Paper, Typography, Box, TextField,
@@ -8,6 +8,7 @@ import {
 import { Link as RouterLink } from "react-router-dom"
 import { useSnackbar } from "../utils/SnackbarComponent"
 import api from "../../api/axios"
+import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
     const [email, setEmail] = useState("")
@@ -19,6 +20,13 @@ const LoginComponent = () => {
     const showSnackbar = useSnackbar();
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+
+    if (localStorage.getItem("access_token")) {
+        useEffect(() => {
+            navigate('/');
+        }, [navigate]);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -59,6 +67,7 @@ const LoginComponent = () => {
             else if (response.status == 200) {
                 localStorage.setItem("access_token", response.data.access_token)
                 showSnackbar("🎉 Login successful", "success", "bottom", "right")
+                navigate("/")
             } else {
                 showSnackbar("Login failed: " + error, "error", "bottom", "right")
             }
