@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import NewurlComponent from './NewUrl';
 
 const HomeComponent = () => {
     const navigate = useNavigate();
@@ -8,5 +9,9 @@ const HomeComponent = () => {
             navigate('/signin');
           }, [navigate]);
     }
+
+    return(
+        <NewurlComponent />
+    )
 }
 export default HomeComponent
