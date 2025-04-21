@@ -3,6 +3,8 @@ import api from "../../api/axios"
 import { useSnackbar } from "../utils/SnackbarComponent"
 import { useState, useEffect } from "react";
 import { AssessmentOutlined, CalendarMonthOutlined, ContentCopy, Delete, LanguageOutlined, Share } from "@mui/icons-material";
+import DeleteButtonWithModal from "./DeleteButtonWithModal";
+import ShareModal from "./ShareModal";
 
 const UrlComponent = ({ id }) => {
 
@@ -206,9 +208,11 @@ const UrlComponent = ({ id }) => {
                                 alt="favicon"
                                 sx={{ width: 32, height: 32, flexShrink: 0 }}
                             />
-                            <Typography variant="h6" noWrap>
-                                {getTruncatedText(title)}
-                            </Typography>
+                            <Link href={"/url/" + id} sx={{textDecoration: 'none'}}>
+                                <Typography variant="h6" noWrap>
+                                    {getTruncatedText(title)}
+                                </Typography>
+                            </Link>
                         </Box>
                         <Box display="flex" alignItems="center" gap={2}>
                             <Tooltip title="Copy">
@@ -217,17 +221,9 @@ const UrlComponent = ({ id }) => {
                                 </IconButton>
                             </Tooltip>
 
-                            <Tooltip title="Share">
-                                <IconButton onClick={handleShare}>
-                                    <Share color="action" />
-                                </IconButton>
-                            </Tooltip>
+                            <ShareModal/>
 
-                            <Tooltip title="Delete">
-                                <IconButton onClick="">
-                                    <Delete color="action" />
-                                </IconButton>
-                            </Tooltip>
+                            <DeleteButtonWithModal />
                         </Box>
                     </CardContent>
                     <Link href={baseUrl + "/" + shortUrl} target="_blank" rel="noopener noreferrer" sx={{ marginLeft: 2 }}>
@@ -274,7 +270,7 @@ const UrlComponent = ({ id }) => {
                         </Box>
 
                     </CardContent>
-                </Card>
+                </Card >
             )}
 
 

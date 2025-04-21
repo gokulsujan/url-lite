@@ -34,13 +34,7 @@ const MyUrlComponent = () => {
     return (
         <div>
             {urls.map((url, index) => (
-                <Link
-                    key={index}
-                    to={`/url/${url.id}`} // 👈 Adjust path as needed
-                    style={{ textDecoration: 'none' }} // Optional: remove underline
-                >
-                    <UrlComponent id={url.id} />
-                </Link>
+                <UrlComponent id={url.id} />
             ))}
         </div>
     );
