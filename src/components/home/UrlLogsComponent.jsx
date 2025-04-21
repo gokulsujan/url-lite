@@ -1,4 +1,4 @@
-import { Card, Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import { Box, Card, Chip, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { useSnackbar } from "../utils/SnackbarComponent";
 import { useState, useEffect } from "react";
 import api from "../../api/axios";
@@ -21,6 +21,7 @@ function formattedDate(dateStr) {
 const UrlLogsComponent = ({ urlID }) => {
     const showSnackbar = useSnackbar();
     const [logs, setLogs] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const getStatusColor = (status) => {
         if (status >= 100 && status < 200) return 'info';
@@ -50,6 +51,7 @@ const UrlLogsComponent = ({ urlID }) => {
             } catch (error) {
                 showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right")
             }
+            setIsLoading(false)
         }
 
         if (urlID) {
@@ -76,20 +78,31 @@ const UrlLogsComponent = ({ urlID }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {logs.map((log, index) => (
-                            <TableRow key={index}>
-                                <TableCell>{formattedDate(log.visited_at)}</TableCell>
-                                <TableCell>{log.client_ip}</TableCell>
-                                <TableCell>{log.city}</TableCell>
-                                <TableCell>{log.country}</TableCell>
-                                <TableCell><Chip
-                                    label={log.http_status_code}
-                                    color={getStatusColor(log.http_status_code)}
-                                    sx={{ fontWeight: 'bold' }}
-                                /></TableCell>
-                                <TableCell>{log.redirect_status}</TableCell>
+                        {isLoading ? (
+                            <TableRow>
+                                <TableCell colSpan={6} align="center">
+                                    <Box sx={{ display: 'flex', justifyContent: 'center', py: 3 }}>
+                                        <CircularProgress />
+                                    </Box>
+                                </TableCell>
                             </TableRow>
-                        ))}
+                        ) : (
+                            logs.map((log, index) => (
+                                <TableRow key={index}>
+                                    <TableCell>{formattedDate(log.visited_at)}</TableCell>
+                                    <TableCell>{log.client_ip}</TableCell>
+                                    <TableCell>{log.city}</TableCell>
+                                    <TableCell>{log.country}</TableCell>
+                                    <TableCell><Chip
+                                        label={log.http_status_code}
+                                        color={getStatusColor(log.http_status_code)}
+                                        sx={{ fontWeight: 'bold' }}
+                                    /></TableCell>
+                                    <TableCell>{log.redirect_status}</TableCell>
+                                </TableRow>
+                            ))
+
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

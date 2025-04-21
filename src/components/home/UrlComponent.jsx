@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CircularProgress, IconButton, Link, Tooltip, Typography } from "@mui/material"
+import { Box, Card, CardContent, CircularProgress, IconButton, Link, Skeleton, Tooltip, Typography } from "@mui/material"
 import api from "../../api/axios"
 import { useSnackbar } from "../utils/SnackbarComponent"
 import { useState, useEffect } from "react";
@@ -15,6 +15,7 @@ const UrlComponent = ({ id }) => {
     const [interactions, setInteractions] = useState(0)
     let baseUrl = api.defaults.baseURL;
     const [textToCopy, setTextToCopy] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleCopy = async () => {
         try {
@@ -76,6 +77,9 @@ const UrlComponent = ({ id }) => {
 
                     const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date);
                     setCreatedAt(formattedDate)
+                    if (response.data.result.url) {
+                        setIsLoading(false)
+                    }
 
                 } else {
                     showSnackbar(response.data.message, "warning", "bottom", "right")
@@ -91,98 +95,175 @@ const UrlComponent = ({ id }) => {
     }, [id])
 
     return (
-        <Card
-            sx={{
-                width: "100%",
-                maxHeight: "10cm",
-                marginY: 2,
-                overflow: "hidden",
-            }}
-        >
-            <CardContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    height: "100%",
-                }}
-            >
-                <Box display="flex" alignItems="center" gap={2}>
-                    <Box
-                        component="img"
-                        src={faviconUrl}
-                        alt="favicon"
-                        sx={{ width: 32, height: 32, flexShrink: 0 }}
-                    />
-                    <Typography variant="h6" noWrap>
-                        {title}
-                    </Typography>
-                </Box>
-                <Box display="flex" alignItems="center" gap={2}>
-                    <Tooltip title="Copy">
-                        <IconButton onClick={handleCopy}>
-                            <ContentCopy color="action" />
-                        </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Share">
-                        <IconButton onClick={handleShare}>
-                            <Share color="action" />
-                        </IconButton>
-                    </Tooltip>
-
-                    <Tooltip title="Delete">
-                        <IconButton onClick="">
-                            <Delete color="action" />
-                        </IconButton>
-                    </Tooltip>
-                </Box>
-            </CardContent>
-            <Link href={baseUrl + "/" + shortUrl} target="_blank" rel="noopener noreferrer" sx={{ marginLeft: 2 }}>
-                {baseUrl}/{shortUrl}
-            </Link>
-            <br />
-            <Link href={longUrl} target="_blank" rel="noopener noreferrer" sx={{
-                marginLeft: 2,
-                textDecoration: 'none',
-                color: 'black',
-                '&:hover': {
-                    textDecoration: 'underline',
-                },
-            }}>
-                {longUrl}
-            </Link>
-            <CardContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    height: "100%",
-                }}
-            >
-                <Box
-                    display="flex"
-                    justifyContent=""
-                    alignItems="center"
-                    gap={2}
-                    sx={{ flexWrap: "wrap" }}
+        <>
+            {isLoading ? (
+                <Card
+                    sx={{
+                        width: "100%",
+                        maxHeight: "10cm",
+                        marginY: 2,
+                        overflow: "hidden",
+                    }}
                 >
-                    <Typography variant="body2" noWrap>
-                        <Box display="flex" alignItems="center">
-                            <AssessmentOutlined sx={{ position: 'relative', color: 'green', top: '2px' }} />
-                            {interactions} engagements
-                        </Box>
-                    </Typography>
-                    <Typography variant="body2" noWrap>
-                        <Box display="flex" alignItems="center">
-                            <CalendarMonthOutlined sx={{ position: 'relative', color: 'blue', top: '2px' }} />
-                            {createdAt}
-                        </Box>
-                    </Typography>
-                </Box>
+                    <CardContent
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            height: "100%",
+                        }}
+                    >
+                        <Box display="flex" alignItems="center" gap={2}>
+                            <Skeleton variant="circular" width={40} height={40} animation="wave" />
+                            <Skeleton variant="text" sx={{ fontSize: '1.6rem', width: 600 }} animation="wave" />
 
-            </CardContent>
-        </Card>
+                        </Box>
+                        <Box display="flex" alignItems="center" gap={2}>
+                            < Tooltip title="Copy">
+                                <Skeleton variant="rectangular" animation="wave" width={30} height={30} />
+                            </Tooltip>
+
+                            <Tooltip title="Share">
+                                <Skeleton variant="rectangular" animation="wave" width={30} height={30} />
+                            </Tooltip>
+
+                            <Tooltip title="Delete">
+                                <Skeleton variant="rectangular" animation="wave" width={30} height={30} />
+                            </Tooltip>
+                        </Box>
+                    </CardContent>
+                    <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 250, marginLeft: 2 }} animation="wave" />
+                    <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 250, marginLeft: 2 }} animation="wave" />
+
+                    <CardContent
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            height: "100%",
+                        }}
+                    >
+                        <Box
+                            display="flex"
+                            justifyContent=""
+                            alignItems="center"
+                            gap={2}
+                            sx={{ flexWrap: "wrap" }}
+                        >
+                            <Typography variant="body2" noWrap>
+                                <Box display="flex" alignItems="center">
+                                    <AssessmentOutlined sx={{ position: 'relative', color: 'green', top: '2px' }} />
+                                    <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 90, marginLeft: 1 }} animation="wave" />
+                                </Box>
+                            </Typography>
+                            <Typography variant="body2" noWrap>
+                                <Box display="flex" alignItems="center">
+                                    <CalendarMonthOutlined sx={{ position: 'relative', color: 'blue', top: '2px' }} />
+                                    <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 200, marginLeft: 1 }} animation="wave" />
+                                </Box>
+                            </Typography>
+                        </Box>
+
+                    </CardContent>
+                </Card>
+            ) : (
+                <Card
+                    sx={{
+                        width: "100%",
+                        maxHeight: "10cm",
+                        marginY: 2,
+                        overflow: "hidden",
+                    }}
+                >
+                    <CardContent
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            height: "100%",
+                        }}
+                    >
+                        <Box display="flex" alignItems="center" gap={2}>
+                            <Box
+                                component="img"
+                                src={faviconUrl}
+                                alt="favicon"
+                                sx={{ width: 32, height: 32, flexShrink: 0 }}
+                            />
+                            <Typography variant="h6" noWrap>
+                                {title}
+                            </Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" gap={2}>
+                            <Tooltip title="Copy">
+                                <IconButton onClick={handleCopy}>
+                                    <ContentCopy color="action" />
+                                </IconButton>
+                            </Tooltip>
+
+                            <Tooltip title="Share">
+                                <IconButton onClick={handleShare}>
+                                    <Share color="action" />
+                                </IconButton>
+                            </Tooltip>
+
+                            <Tooltip title="Delete">
+                                <IconButton onClick="">
+                                    <Delete color="action" />
+                                </IconButton>
+                            </Tooltip>
+                        </Box>
+                    </CardContent>
+                    <Link href={baseUrl + "/" + shortUrl} target="_blank" rel="noopener noreferrer" sx={{ marginLeft: 2 }}>
+                        {baseUrl}/{shortUrl}
+                    </Link>
+                    <br />
+                    <Link href={longUrl} target="_blank" rel="noopener noreferrer" sx={{
+                        marginLeft: 2,
+                        textDecoration: 'none',
+                        color: 'black',
+                        '&:hover': {
+                            textDecoration: 'underline',
+                        },
+                    }}>
+                        {longUrl}
+                    </Link>
+                    <CardContent
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            height: "100%",
+                        }}
+                    >
+                        <Box
+                            display="flex"
+                            justifyContent=""
+                            alignItems="center"
+                            gap={2}
+                            sx={{ flexWrap: "wrap" }}
+                        >
+                            <Typography variant="body2" noWrap>
+                                <Box display="flex" alignItems="center">
+                                    <AssessmentOutlined sx={{ position: 'relative', color: 'green', top: '2px', marginRight: 1 }} />
+                                    {interactions} engagements
+                                </Box>
+                            </Typography>
+                            <Typography variant="body2" noWrap>
+                                <Box display="flex" alignItems="center">
+                                    <CalendarMonthOutlined sx={{ position: 'relative', color: 'blue', top: '2px', marginRight: 1 }} />
+                                    {createdAt}
+                                </Box>
+                            </Typography>
+                        </Box>
+
+                    </CardContent>
+                </Card>
+            )}
+
+
+        </>
+
 
 
     )
