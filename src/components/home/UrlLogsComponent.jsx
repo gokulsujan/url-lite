@@ -65,47 +65,52 @@ const UrlLogsComponent = ({ urlID }) => {
             marginY: 2,
             overflow: "hidden",
         }}>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>DateTime</TableCell>
-                            <TableCell>Client IP</TableCell>
-                            <TableCell>City</TableCell>
-                            <TableCell>Country</TableCell>
-                            <TableCell>Http Status Code</TableCell>
-                            <TableCell>Status</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {isLoading ? (
+            {(isLoading || logs.length > 0) && (
+                <TableContainer>
+                    <Table>
+                        <TableHead>
                             <TableRow>
-                                <TableCell colSpan={6} align="center">
-                                    <Box sx={{ display: 'flex', justifyContent: 'center', py: 3 }}>
-                                        <CircularProgress />
-                                    </Box>
-                                </TableCell>
+                                <TableCell>DateTime</TableCell>
+                                <TableCell>Client IP</TableCell>
+                                <TableCell>City</TableCell>
+                                <TableCell>Country</TableCell>
+                                <TableCell>Http Status Code</TableCell>
+                                <TableCell>Status</TableCell>
                             </TableRow>
-                        ) : (
-                            logs.map((log, index) => (
-                                <TableRow key={index}>
-                                    <TableCell>{formattedDate(log.visited_at)}</TableCell>
-                                    <TableCell>{log.client_ip}</TableCell>
-                                    <TableCell>{log.city}</TableCell>
-                                    <TableCell>{log.country}</TableCell>
-                                    <TableCell><Chip
-                                        label={log.http_status_code}
-                                        color={getStatusColor(log.http_status_code)}
-                                        sx={{ fontWeight: 'bold' }}
-                                    /></TableCell>
-                                    <TableCell>{log.redirect_status}</TableCell>
+                        </TableHead>
+                        <TableBody>
+                            {isLoading ? (
+                                <TableRow>
+                                    <TableCell colSpan={6} align="center">
+                                        <Box sx={{ display: 'flex', justifyContent: 'center', py: 3 }}>
+                                            <CircularProgress />
+                                        </Box>
+                                    </TableCell>
                                 </TableRow>
-                            ))
+                            ) : (
+                                logs.map((log, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{formattedDate(log.visited_at)}</TableCell>
+                                        <TableCell>{log.client_ip}</TableCell>
+                                        <TableCell>{log.city}</TableCell>
+                                        <TableCell>{log.country}</TableCell>
+                                        <TableCell>
+                                            <Chip
+                                                label={log.http_status_code}
+                                                color={getStatusColor(log.http_status_code)}
+                                                sx={{ fontWeight: 'bold' }}
+                                            />
+                                        </TableCell>
+                                        <TableCell>{log.redirect_status}</TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
 
-                        )}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+
         </Card>
     )
 }
