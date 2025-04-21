@@ -42,7 +42,9 @@ const NewurlComponent = () => {
         try {
             const response = await api.post("/api/v1/url/", data, { headers })
             if (response.status == 202) {
-                showSnackbar("🎉 URL Generated: " + response.data.result.url.short_url, "success", "bottom", "right")
+                showSnackbar("🎉 URL Generated", "success", "bottom", "right")
+                let urlID = response.data.result.url.id
+                navigate("/url/" + urlID)
             } else {
                 showSnackbar(response.data.messages, "error", "bottom", "right")
             }
