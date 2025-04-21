@@ -39,8 +39,33 @@ const DeleteButtonWithModal = ({ urlId }) => {
     const showSnackbar = useSnackbar();
     const navigate = useNavigate();
 
+    const handleDelete = async () => {
+        setDeleting(true)
+        try {
+            let response = await api.delete("/api/v1/url/" + urlId, {
+                headers: {
+                    Authorization: `Bearer ` + localStorage.getItem("access_token")
+                }
+            })
 
+            if (response.status == 200) {
+                showSnackbar("Url Deleted successfully", "success", "bottom", "right")
+                const isOnHomePage = window.location.pathname === "/";
+                if (isOnHomePage) {
+                    window.location.reload();
+                } else {
+                    navigate("/", { replace: true });
+                }
 
+            } else {
+                showSnackbar(response.data.message, "error", "bottom", "right")
+            }
+        } catch (error) {
+            showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right")
+        } finally {
+            setDeleting(false)
+        }
+    }
 
 
     return (
@@ -64,7 +89,7 @@ const DeleteButtonWithModal = ({ urlId }) => {
                             Cancel
                         </Button>
                         <Button
-                            onClick={""}
+                            onClick={handleDelete}
                             variant="contained"
                             color="error"
                             disabled={deleting}

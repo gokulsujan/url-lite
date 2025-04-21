@@ -223,7 +223,7 @@ const UrlComponent = ({ id }) => {
 
                             <ShareModal/>
 
-                            <DeleteButtonWithModal />
+                            <DeleteButtonWithModal urlId={id} />
                         </Box>
                     </CardContent>
                     <Link href={baseUrl + "/" + shortUrl} target="_blank" rel="noopener noreferrer" sx={{ marginLeft: 2 }}>

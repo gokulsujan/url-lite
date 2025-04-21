@@ -9,9 +9,9 @@ import UrlDetails from "./components/home/UrlDetails.jsx";
 function App() {
     return (
         <>
-            <NavbarComponent />
-            <SnackbarComponent>
-                <Router>
+            <Router>
+                <NavbarComponent />
+                <SnackbarComponent>
                     <Routes>
                         <Route path="/" element={<HomeComponent />} />
                         <Route path="/signin" element={<LoginComponent />} />
@@ -19,8 +19,8 @@ function App() {
 
                         <Route path="/url/:id" element={<UrlDetails />} />
                     </Routes>
-                </Router>
-            </SnackbarComponent>
+                </SnackbarComponent >
+            </Router>
         </>
     )
 }
