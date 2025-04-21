@@ -72,7 +72,7 @@ const DeleteButtonWithModal = ({ urlId }) => {
         <>
             <Tooltip title="Delete">
                 <IconButton onClick={handleOpen}>
-                    <Delete color="action" />
+                    <Delete color="error" />
                 </IconButton>
             </Tooltip>
 

@@ -38,7 +38,7 @@ export default function ShareModal({ shortUrl }) {
         <div>
             <Tooltip title="Share">
                 <IconButton onClick={handleOpen}>
-                    <Share color="action" />
+                    <Share sx={{ color: '#DAA520' }} />
                 </IconButton>
             </Tooltip>
             <Modal
