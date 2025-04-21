@@ -2,9 +2,10 @@ import { Box, Card, CardContent, CircularProgress, IconButton, Link, Skeleton, T
 import api from "../../api/axios"
 import { useSnackbar } from "../utils/SnackbarComponent"
 import { useState, useEffect } from "react";
-import { AssessmentOutlined, CalendarMonthOutlined, ContentCopy, Delete, LanguageOutlined, Share } from "@mui/icons-material";
+import { AssessmentOutlined, CalendarMonthOutlined, ContentCopy, Delete, LanguageOutlined, QrCode2, Share } from "@mui/icons-material";
 import DeleteButtonWithModal from "./DeleteButtonWithModal";
 import ShareModal from "./ShareModal";
+import UrlQrCodeModal from "./UrlQrcodeModal";
 
 const UrlComponent = ({ id }) => {
 
@@ -208,20 +209,20 @@ const UrlComponent = ({ id }) => {
                                 alt="favicon"
                                 sx={{ width: 32, height: 32, flexShrink: 0 }}
                             />
-                            <Link href={"/url/" + id} sx={{textDecoration: 'none'}}>
+                            <Link href={"/url/" + id} sx={{ textDecoration: 'none' }}>
                                 <Typography variant="h6" noWrap>
                                     {getTruncatedText(title)}
                                 </Typography>
                             </Link>
                         </Box>
-                        <Box display="flex" alignItems="center" gap={2}>
+                        <Box display="flex" alignItems="center">
                             <Tooltip title="Copy">
                                 <IconButton onClick={handleCopy}>
                                     <ContentCopy color="action" />
                                 </IconButton>
                             </Tooltip>
-
-                            <ShareModal/>
+                            <UrlQrCodeModal shortUrl={baseUrl+"/"+shortUrl} />
+                            <ShareModal />
 
                             <DeleteButtonWithModal urlId={id} />
                         </Box>
