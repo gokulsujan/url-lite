@@ -47,6 +47,22 @@ const UrlComponent = ({ id }) => {
         return origin + '/' + url.replace(/^\/+/, '');
     }
 
+    const getTruncatedText = (text) => {
+        const screenWidth = window.innerWidth;
+        let maxLength = 20;
+
+        if (screenWidth > 1200) {
+            maxLength = 100;
+        } else if (screenWidth > 768) {
+            maxLength = 60;
+        } else {
+            maxLength = 10;
+        }
+
+        return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+    };
+
+
     useEffect(() => {
         const handleUrlData = async () => {
             try {
@@ -191,7 +207,7 @@ const UrlComponent = ({ id }) => {
                                 sx={{ width: 32, height: 32, flexShrink: 0 }}
                             />
                             <Typography variant="h6" noWrap>
-                                {title}
+                                {getTruncatedText(title)}
                             </Typography>
                         </Box>
                         <Box display="flex" alignItems="center" gap={2}>
