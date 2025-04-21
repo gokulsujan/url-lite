@@ -67,7 +67,7 @@ const LoginComponent = () => {
             else if (response.status == 200) {
                 localStorage.setItem("access_token", response.data.access_token)
                 showSnackbar("🎉 Login successful", "success", "bottom", "right")
-                navigate("/")
+                window.location="/"
             } else {
                 showSnackbar("Login failed: " + error, "error", "bottom", "right")
             }
