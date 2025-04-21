@@ -3,6 +3,21 @@ import { useSnackbar } from "../utils/SnackbarComponent";
 import { useState, useEffect } from "react";
 import api from "../../api/axios";
 
+function formattedDate(dateStr) {
+    let date = new Date(dateStr);
+    let options = {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Asia/Kolkata'
+    };
+
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
+}
+
 const UrlLogsComponent = ({ urlID }) => {
     const showSnackbar = useSnackbar();
     const [logs, setLogs] = useState([])
@@ -26,11 +41,11 @@ const UrlLogsComponent = ({ urlID }) => {
                 })
 
                 if (response.status == 200) {
-                    if (logs != null) {
+                    if (response.data.result.logs != null) {
                         setLogs(response.data.result.logs)
                     }
                 } else {
-                    debugger
+                    showSnackbar(response.data.message, "error", "bottom", "right")
                 }
             } catch (error) {
                 showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right")
@@ -63,7 +78,7 @@ const UrlLogsComponent = ({ urlID }) => {
                     <TableBody>
                         {logs.map((log, index) => (
                             <TableRow key={index}>
-                                <TableCell>{log.visited_at}</TableCell>
+                                <TableCell>{formattedDate(log.visited_at)}</TableCell>
                                 <TableCell>{log.client_ip}</TableCell>
                                 <TableCell>{log.city}</TableCell>
                                 <TableCell>{log.country}</TableCell>
