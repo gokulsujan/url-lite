@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import UrlComponent from "./UrlComponent";
+import UrlLogsComponent from './UrlLogsComponent';
 
 const UrlDetails = () => {
     const { id } = useParams();
@@ -7,6 +8,7 @@ const UrlDetails = () => {
     return (
         <>
             <UrlComponent id={id} />
+            <UrlLogsComponent urlID={id} />
         </>
 
     )
