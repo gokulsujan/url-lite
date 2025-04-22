@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import api from "../../api/axios"
 import { useSnackbar } from "../utils/SnackbarComponent";
 import UrlComponent from "./UrlComponent";
-import { Link } from "react-router-dom";
 
 const MyUrlComponent = () => {
     const showSnackbar = useSnackbar();
@@ -23,6 +22,8 @@ const MyUrlComponent = () => {
                     } else {
                         showSnackbar(response.data.message, "error", "bottom", "right");
                     }
+                } else if (response.status == 204) {
+                    setUrls([]);
                 }
             } catch (error) {
                 showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right");

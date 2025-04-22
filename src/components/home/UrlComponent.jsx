@@ -169,13 +169,13 @@ const UrlComponent = ({ id }) => {
                             gap={2}
                             sx={{ flexWrap: "wrap" }}
                         >
-                            <Typography variant="body2" noWrap>
+                            <Typography variant="body2" noWrap component="div">
                                 <Box display="flex" alignItems="center">
                                     <AssessmentOutlined sx={{ position: 'relative', color: 'green', top: '2px' }} />
                                     <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 90, marginLeft: 1 }} animation="wave" />
                                 </Box>
                             </Typography>
-                            <Typography variant="body2" noWrap>
+                            <Typography variant="body2" noWrap component="div">
                                 <Box display="flex" alignItems="center">
                                     <CalendarMonthOutlined sx={{ position: 'relative', color: 'blue', top: '2px' }} />
                                     <Skeleton variant="text" sx={{ fontSize: '1.4rem', width: 200, marginLeft: 1 }} animation="wave" />
@@ -256,13 +256,13 @@ const UrlComponent = ({ id }) => {
                             gap={2}
                             sx={{ flexWrap: "wrap" }}
                         >
-                            <Typography variant="body2" noWrap>
+                            <Typography variant="body2" noWrap component="div">
                                 <Box display="flex" alignItems="center">
                                     <AssessmentOutlined sx={{ position: 'relative', color: 'green', top: '2px', marginRight: 1 }} />
                                     {interactions} engagements
                                 </Box>
                             </Typography>
-                            <Typography variant="body2" noWrap>
+                            <Typography variant="body2" noWrap component="div">
                                 <Box display="flex" alignItems="center">
                                     <CalendarMonthOutlined sx={{ position: 'relative', color: 'blue', top: '2px', marginRight: 1 }} />
                                     {createdAt}

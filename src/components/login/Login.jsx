@@ -66,8 +66,11 @@ const LoginComponent = () => {
             }
             else if (response.status == 200) {
                 localStorage.setItem("access_token", response.data.access_token)
+                if (response.data.verified_email != true) {
+                    localStorage.setItem("not_verified_email", true)
+                }
                 showSnackbar("🎉 Login successful", "success", "bottom", "right")
-                window.location="/"
+                window.location = "/"
             } else {
                 showSnackbar("Login failed: " + error, "error", "bottom", "right")
             }

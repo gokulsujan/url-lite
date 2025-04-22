@@ -94,6 +94,7 @@ const VerifyEmailOtpComponent = () => {
 
             if (response.status === 200) {
                 showSnackbar("🎉 Email verified successfully", "success", "bottom", "right");
+                localStorage.removeItem("not_verified_email")
                 navigate("/profile");
             } else {
                 showSnackbar(response.data.message || "OTP verification failed", "error", "bottom", "right");

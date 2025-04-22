@@ -84,10 +84,11 @@ const SignupComponent = () => {
         }
 
         try {
-            const response = await api.post("/signup", data, { headers });
+            const response = await api.post("/signup-and-login", data, { headers });
             if (response.status == 202) {
-                showSnackbar("🎉 Signup successful", "success", "bottom", "right")
-                navigate("/signin")
+                localStorage.setItem("access_token", response.data.access_token)
+                localStorage.setItem("not_verified_email", true)
+                window.location = "/send-email-otp"
             } else {
                 showSnackbar(response.message, "error", "bottom", "right")
 
