@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import api from "../../api/axios"
-import { useSnackbar } from "../utils/SnackbarComponent";
-import UrlComponent from "./UrlComponent";
+import { useSnackbar } from "../utils/SnackbarComponent"
+import UrlComponent from "./UrlComponent"
+import { Box, Typography, Paper } from "@mui/material"
 
 const MyUrlComponent = () => {
-    const showSnackbar = useSnackbar();
-    const [urls, setUrls] = useState([]);
+    const showSnackbar = useSnackbar()
+    const [urls, setUrls] = useState([])
 
     useEffect(() => {
         const handleUserUrls = async () => {
@@ -14,31 +15,46 @@ const MyUrlComponent = () => {
                     headers: {
                         Authorization: `Bearer ` + localStorage.getItem("access_token")
                     }
-                });
+                })
 
                 if (response.status === 200) {
                     if (response.data.result.urls != null) {
-                        setUrls(response.data.result.urls);
+                        setUrls(response.data.result.urls)
                     } else {
-                        showSnackbar(response.data.message, "error", "bottom", "right");
+                        showSnackbar(response.data.message, "error", "bottom", "right")
                     }
                 } else if (response.status == 204) {
-                    setUrls([]);
+                    setUrls([])
                 }
             } catch (error) {
-                showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right");
+                showSnackbar(error?.response?.data || "Something went wrong", "error", "bottom", "right")
             }
-        };
-        handleUserUrls();
-    }, []);
+        }
+        handleUserUrls()
+    }, [])
 
     return (
         <div>
-            {urls.map((url, index) => (
-                <UrlComponent id={url.id} />
+            <Paper
+                elevation={4}
+                sx={{
+                    width: '100%',
+                    padding: "16px 0",
+                    borderRadius: "12px",
+                    backgroundColor: "#e3f2fd",
+                    mb: 3
+                }}
+            >
+                <Typography variant="h5" fontWeight="bold" color="primary" align="center">
+                    My URLs
+                </Typography>
+            </Paper>
+
+            {urls.map((url) => (
+                <UrlComponent key={url.id} id={url.id} />
             ))}
         </div>
-    );
-};
+    )
+}
 
-export default MyUrlComponent;
+export default MyUrlComponent

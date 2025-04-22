@@ -55,7 +55,7 @@ const NewurlComponent = () => {
     }
 
     return (
-        <Container maxWidth="sm" >
+        <Container maxWidth="sm" sx={{mb:9}}>
             <Paper elevation={10} sx={{ marginTop: 8, padding: 2 }}>
                 <Avatar sx={{
                     mx: "auto",
