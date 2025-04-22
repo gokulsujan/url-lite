@@ -118,15 +118,15 @@ const SignupComponent = () => {
                     noValidate
                     sx={{ mt: 1 }}
                 >
-                    <TextField placeholder="Enter your full name" fullWidth required autoFocus sx={{ mb: 2 }} type='text'
+                    <TextField label="Name" placeholder="Enter your full name" fullWidth required autoFocus sx={{ mb: 2 }} type='text'
                         value={name} error={!!nameError} onChange={(e) => setName(e.target.value)} helperText={nameError} />
-                    <TextField placeholder="Enter your email id" fullWidth required sx={{ mb: 2 }} type='email'
+                    <TextField label="Email" placeholder="Enter your email id" fullWidth required sx={{ mb: 2 }} type='email'
                         value={email} error={!!emailError} onChange={(e) => setEmail(e.target.value)} helperText={emailError} />
-                    <TextField placeholder="Enter your mobile number" fullWidth required sx={{ mb: 2 }} type='tel'
+                    <TextField label="Mobile Number" placeholder="Enter your mobile number" fullWidth required sx={{ mb: 2 }} type='tel'
                         value={mobile} error={!!mobileError} onChange={(e) => setMobile(e.target.value)} helperText={mobileError} />
-                    <TextField placeholder="Enter your password" fullWidth required sx={{ mb: 2 }} type='password'
+                    <TextField label="Password" placeholder="Enter your password" fullWidth required sx={{ mb: 2 }} type='password'
                         value={password} error={!!passwordError} onChange={(e) => setPassword(e.target.value)} helperText={passwordError} />
-                    <TextField placeholder="Confirm your password" fullWidth required sx={{ mb: 2 }} type='password'
+                    <TextField label="Confirm Password" placeholder="Confirm your password" fullWidth required sx={{ mb: 2 }} type='password'
                         value={confirmPassword} error={!!confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} helperText={confirmPasswordError} />
                     <Button type="submit" variant="contained" fullWidth sx={{ mt: 1 }} disabled={isLoading}>
                         {isLoading ? (

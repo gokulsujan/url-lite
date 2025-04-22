@@ -81,7 +81,7 @@ const LoginComponent = () => {
         }
     }
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
             <Paper elevation={10} sx={{ marginTop: 8, padding: 2 }}>
                 <Avatar sx={{
                     mx: 'auto',
@@ -100,10 +100,10 @@ const LoginComponent = () => {
                     noValidate
                     sx={{ mt: 1 }}
                 >
-                    <TextField placeholder="Enter your email" fullWidth required autoFocus sx={{ mb: 2 }}
+                    <TextField label="Email" placeholder="Enter your email" fullWidth required autoFocus sx={{ mb: 2 }}
                         type='email' value={email} onChange={(e) => setEmail(e.target.value)}
                         error={!!emailError} helperText={emailError} />
-                    <TextField placeholder="Enter you password" fullWidth required type={showPassword ? "text" : "password"}
+                    <TextField label="Password" placeholder="Enter you password" fullWidth required type={showPassword ? "text" : "password"}
                         value={password} onChange={(e) => setPassword(e.target.value)}
                         error={!!passwordError} helperText={passwordError}
                         InputProps={{

@@ -8,6 +8,7 @@ import UrlDetails from "./components/home/UrlDetails.jsx";
 import AccountSettingComponent from "./components/profile/AccountSettings.jsx";
 import SendEmailVerificationOtpComponent from "./components/email_verification/SendEmailVerificationOtp.jsx";
 import VerifyEmailOtpComponent from "./components/email_verification/VerifyOTP.jsx";
+import ForgetPasswordComponent from "./components/forget_password/ForgetPassword.jsx";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                         <Route path="/" element={<HomeComponent />} />
                         <Route path="/signin" element={<LoginComponent />} />
                         <Route path="/signup" element={<SignupComponent />} />
+                        <Route path="/forget-password" element={<ForgetPasswordComponent />} />
                         <Route path="/send-email-otp" element={<SendEmailVerificationOtpComponent />} />
                         <Route path="/verify-email" element={<VerifyEmailOtpComponent />} />
                         <Route path="/profile" element={<AccountSettingComponent />} />
