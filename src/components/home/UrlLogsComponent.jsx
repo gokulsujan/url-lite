@@ -61,12 +61,10 @@ const UrlLogsComponent = ({ urlID }) => {
     return (
         <Card sx={{
             width: "100%",
-            maxHeight: "10cm",
             marginY: 2,
-            overflow: "hidden",
         }}>
             {(isLoading || logs.length > 0) && (
-                <TableContainer>
+                <TableContainer sx={{ maxHeight: 400, overflowY: 'auto' }}>
                     <Table>
                         <TableHead>
                             <TableRow>

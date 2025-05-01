@@ -222,7 +222,7 @@ const UrlComponent = ({ id }) => {
                                 </IconButton>
                             </Tooltip>
                             <UrlQrCodeModal shortUrl={baseUrl+"/"+shortUrl} />
-                            <ShareModal />
+                            <ShareModal shortUrl={baseUrl+"/"+shortUrl} />
 
                             <DeleteButtonWithModal urlId={id} />
                         </Box>

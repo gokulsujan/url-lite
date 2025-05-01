@@ -15,11 +15,7 @@ const NewurlComponent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*))\\.)+[a-z]{2,}' + // domain name
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        const pattern = /^(https?:\/\/)([\w.-]+)(:\d+)?(\/.*)?$/i; // URL pattern
 
         if (!pattern.test(url)) {
             setUrlError("Not a valid URL")
@@ -35,7 +31,7 @@ const NewurlComponent = () => {
         let headers = {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token,
-            'Origin': "http://localhost:5173"
+            'Origin': "https://app.urllite.in"
         }
 
 
