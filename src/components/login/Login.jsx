@@ -72,10 +72,14 @@ const LoginComponent = () => {
                 showSnackbar("🎉 Login successful", "success", "bottom", "right")
                 window.location = "/"
             } else {
-                showSnackbar("Login failed: " + error, "error", "bottom", "right")
+                showSnackbar("Login failed: " + response.data.message, "error", "bottom", "right")
             }
         } catch (error) {
-            showSnackbar("⚠️ Network error: " + error, "error", "bottom", "right")
+            if (error.response.data.message) {
+                showSnackbar("Login failed: " + error.response.data.message, "error", "bottom", "right")
+            } else {
+                showSnackbar("⚠️ Network error: " + error, "error", "bottom", "right")
+            }
         } finally {
             setIsLoading(false);
         }
