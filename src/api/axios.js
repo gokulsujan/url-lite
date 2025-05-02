@@ -14,7 +14,7 @@ api.interceptors.response.use(
       }
       return Promise.reject(error);
     }
-  );access_token
+  );
 
 export default api;
  
