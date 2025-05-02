@@ -75,6 +75,7 @@ const SignupComponent = () => {
         let data = {
             name: name,
             email: email,
+            mobile: mobile,
             password: password,
             confirm_password: confirmPassword
         }
@@ -97,6 +98,27 @@ const SignupComponent = () => {
             showSnackbar(error.response.data.message, "error", "bottom", "right")
         }
         setIsLoading(false)
+    }
+
+    const handleReset = () =>{
+        setName("")
+        setEmail("")
+        setMobile("")
+        setPassword("")
+        setConfirmPassword("")
+        setNameError("")
+        setEmailError("")
+        setMobileError("")
+        setPasswordError("")
+        setConfirmPasswordError("")
+    }
+
+    const validateConfirmPassword = (confPassValue) => {
+        if (confPassValue != password) {
+            setConfirmPasswordError("Confirm password and password is not same")
+        } else {
+            setConfirmPasswordError("")
+        }
     }
     return (
         <Container maxWidth="sm" >
@@ -127,7 +149,11 @@ const SignupComponent = () => {
                     <TextField label="Password" placeholder="Enter your password" fullWidth required sx={{ mb: 2 }} type='password'
                         value={password} error={!!passwordError} onChange={(e) => setPassword(e.target.value)} helperText={passwordError} />
                     <TextField label="Confirm Password" placeholder="Confirm your password" fullWidth required sx={{ mb: 2 }} type='password'
-                        value={confirmPassword} error={!!confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} helperText={confirmPasswordError} />
+                        value={confirmPassword} error={!!confirmPasswordError} onChange={(e) => {
+                            const value = e.target.value;
+                            setConfirmPassword(value);
+                            validateConfirmPassword(value)}} 
+                        helperText={confirmPasswordError} />
                     <Button type="submit" variant="contained" fullWidth sx={{ mt: 1 }} disabled={isLoading}>
                         {isLoading ? (
                             <CircularProgress size={24} sx={{ color: 'white' }} />
@@ -135,7 +161,7 @@ const SignupComponent = () => {
                             'Sign Up'
                         )}
                     </Button>
-                    <Button type="reset" variant="contained" color="inherit" fullWidth sx={{ mt: 1 }}>
+                    <Button type="reset" onClick={handleReset} variant="contained" color="inherit" fullWidth sx={{ mt: 1 }}>
                         Reset
                     </Button>
                     <Grid container justifyContent='space-between' sx={{ mt: 1 }}>
