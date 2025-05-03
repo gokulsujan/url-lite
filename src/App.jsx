@@ -10,6 +10,7 @@ import SendEmailVerificationOtpComponent from "./components/email_verification/S
 import VerifyEmailOtpComponent from "./components/email_verification/VerifyOTP.jsx";
 import ForgetPasswordComponent from "./components/forget_password/ForgetPassword.jsx";
 import { Box } from "@mui/material";
+import { AdminDashboardComponent } from "./admin/AdminDashboardComponent.jsx";
 
 function App() {
     return (
@@ -28,6 +29,8 @@ function App() {
                             <Route path="/profile" element={<AccountSettingComponent />} />
 
                             <Route path="/url/:id" element={<UrlDetails />} />
+
+                            <Route path="/admin" element={<AdminDashboardComponent />} />
                         </Routes>
                     </Box>
                 </SnackbarComponent >
